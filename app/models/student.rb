@@ -9,6 +9,7 @@ class Student < ApplicationRecord
     def check_age
         if(self.age <= 17)
             errors.add(:age, "Prospective student is too young")
+            byebug
         end
     end
 end

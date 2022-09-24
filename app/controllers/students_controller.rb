@@ -6,9 +6,11 @@ class StudentsController < ApplicationController
     end
 
     def create
-        new_student = Student.create!(student_params)
+        byebug
+        #new_student = Student.create!(student_params)
         render json: new_student, status: :created
     rescue ActiveRecord::RecordInvalid
+        byebug
         render json: {errors: ["invalid record, cannot add to database"]}, status: :unprocessable_entity
     end
 
@@ -36,7 +38,7 @@ class StudentsController < ApplicationController
     end
 
     def student_params
-        params.permit(:name, :major, :age)
+        params.permit(:name, :major, :age, :instructor_id)
     end
 
     def not_found_response

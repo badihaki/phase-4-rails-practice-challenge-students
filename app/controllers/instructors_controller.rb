@@ -28,6 +28,20 @@ class InstructorsController < ApplicationController
         head :no_content
     end
 
+    def create_new_student
+        instructor = find_instructor()
+        student = instructor.students.create!(
+            name: params[:name],
+            major: params[:major],
+            age: params[:age],
+            instructor_id: instructor.id
+        )
+        render json: student, include: instructor, status: :created
+    rescue ActiveRecord::RecordInvalid
+        #byebug
+        render json: {errors: ["invalid record, cannot add to database"]}, status: :unprocessable_entity
+    end
+
     private
     
     def find_instructor
