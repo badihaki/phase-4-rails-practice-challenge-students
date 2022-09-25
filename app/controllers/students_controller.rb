@@ -5,15 +5,6 @@ class StudentsController < ApplicationController
         render json: Student.all, status: :ok
     end
 
-    def create
-        byebug
-        #new_student = Student.create!(student_params)
-        render json: new_student, status: :created
-    rescue ActiveRecord::RecordInvalid
-        byebug
-        render json: {errors: ["invalid record, cannot add to database"]}, status: :unprocessable_entity
-    end
-
     def show
         student = find_student()
         render json: student, serializer: StudentSerializer, status: :found
